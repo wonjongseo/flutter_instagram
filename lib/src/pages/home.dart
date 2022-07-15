@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_clone_inst/src/components/avatar_widget.dart';
 import 'package:flutter_clone_inst/src/components/image_data.dart';
+import 'package:flutter_clone_inst/src/components/post_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -55,19 +56,13 @@ class Home extends StatelessWidget {
                 size: 65,
                 type: AvatarType.TYPE1))
       ]),
-      // Container(
-      //       width: 60,
-      //       height: 60,
-      //       decoration: const BoxDecoration(
-      //         shape: BoxShape.circle,
-      //         color: Colors.grey,
-      //       ),
-      //     ))
     );
   }
 
   Widget _postList() {
-    return Container();
+    return Column(
+      children: List.generate(50, (index) => const PostWidget()),
+    );
   }
 
   @override
