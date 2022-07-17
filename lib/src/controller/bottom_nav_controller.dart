@@ -8,7 +8,12 @@ import 'package:get/get.dart';
 enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
 
 class BottomNavController extends GetxController {
+  static BottomNavController get to => Get.find();
   RxInt pageIndex = 0.obs;
+
+  // for nesting router
+  GlobalKey<NavigatorState> searchPageNavigationKey =
+      GlobalKey<NavigatorState>();
 
   List<int> bottomHistory = [0];
 
@@ -51,6 +56,12 @@ class BottomNavController extends GetxController {
               ));
       return true;
     } else {
+      var page = PageName.values[bottomHistory.length];
+      if (page == PageName.SEARCH) {
+        var value = await searchPageNavigationKey.currentState!.maybePop();
+        if (value) return false;
+      }
+
       var index = bottomHistory.last;
       changeBottomNav(index, hasGesture: false);
       bottomHistory.removeLast();

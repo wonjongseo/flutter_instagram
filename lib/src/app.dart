@@ -14,6 +14,28 @@ class App extends GetView<BottomNavController> {
       onWillPop: controller.willPopAction,
       child: Obx(
         () => Scaffold(
+          body: IndexedStack(
+            index: controller.pageIndex.value,
+            children: [
+              const Home(),
+              Navigator(
+                key: controller.searchPageNavigationKey,
+                onGenerateRoute: (routeSetting) {
+                  return MaterialPageRoute(
+                      builder: (builder) => const Search());
+                },
+              ),
+              Container(
+                child: const Center(child: Text('upload')),
+              ),
+              Container(
+                child: const Center(child: Text('activty')),
+              ),
+              Container(
+                child: const Center(child: Text('mypage')),
+              ),
+            ],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             // 선택된 아이콘 상승 하는 거 방지
             type: BottomNavigationBarType.fixed,
@@ -52,22 +74,6 @@ class App extends GetView<BottomNavController> {
                     ),
                   ),
                   label: 'home'),
-            ],
-          ),
-          body: IndexedStack(
-            index: controller.pageIndex.value,
-            children: [
-              const Home(),
-              const Search(),
-              Container(
-                child: const Center(child: Text('upload')),
-              ),
-              Container(
-                child: const Center(child: Text('activty')),
-              ),
-              Container(
-                child: const Center(child: Text('mypage')),
-              ),
             ],
           ),
         ),
